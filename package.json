@@ -1,0 +1,14 @@
+{
+  "name": "studenmanagement",
+  "version": "1.0.0",
+  "description": "student managenment desktop app",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "khadija hussain",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^9.2.1"
+  }
+}
