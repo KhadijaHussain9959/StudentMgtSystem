@@ -24,4 +24,39 @@ app.on("ready", () => {
   Menu.setApplicationMenu(mainMenu);
 });
 
-const mainaMenuTemplate = [{ label: "File" }];
+const mainaMenuTemplate = [
+  {
+    label: "File",
+    submenu: [
+      {
+        label: "Quit",
+        accelerator: process.platform == "drawin" ? "Command+Q" : "Ctrl+Q",
+        click() {
+          app.quit();
+        },
+      },
+    ],
+  },
+];
+
+if (process.platform == "darwin") {
+  mainaMenuTemplate.unshift({});
+}
+
+if (process.env.NODE_ENV !== "production") {
+  mainaMenuTemplate.push({
+    label: "developer tool",
+    submenu: [
+      {
+        label: "Toggle Dev Tool",
+        accelerator: process.platform == "drawin" ? "Command+I" : "Ctrl+I",
+        click(item, focusedWindow) {
+          focusedWindow.toggleDevTools();
+        },
+      },
+      {
+        role: "reload",
+      },
+    ],
+  });
+}
