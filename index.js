@@ -1,6 +1,7 @@
 const electron = require("electron");
 const url = require("url");
 const path = require("path");
+const { Menu } = require("electron");
 
 const { app, BrowserWindow } = electron;
 
@@ -18,4 +19,9 @@ app.on("ready", () => {
       slashes: true,
     })
   );
+  const mainMenu = Menu.buildFromTemplate(mainaMenuTemplate);
+
+  Menu.setApplicationMenu(mainMenu);
 });
+
+const mainaMenuTemplate = [{ label: "File" }];
