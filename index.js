@@ -1,9 +1,8 @@
 const electron = require("electron");
 const url = require("url");
 const path = require("path");
-const { Menu } = require("electron");
 
-const { app, BrowserWindow } = electron;
+const { app, BrowserWindow, Menu, ipcMain } = electron;
 
 let mainWindow;
 let addWindow;
@@ -11,7 +10,11 @@ let addWindow;
 // Listen for app to be ready
 app.on("ready", () => {
   // create new window
-  mainWindow = new BrowserWindow({});
+  mainWindow = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
   // load html into window
   mainWindow.loadURL(
     url.format({
@@ -23,6 +26,10 @@ app.on("ready", () => {
   const mainMenu = Menu.buildFromTemplate(mainaMenuTemplate);
 
   Menu.setApplicationMenu(mainMenu);
+});
+
+ipcMain.on("addStudent", function () {
+  createAddWindow();
 });
 
 function createAddWindow() {
