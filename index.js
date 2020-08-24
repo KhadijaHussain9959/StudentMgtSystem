@@ -3,7 +3,7 @@ const url = require("url");
 const path = require("path");
 const { Menu } = require("electron");
 
-const { app, BrowserWindow } = electron;
+const { app, BrowserWindow, ipcMain } = electron;
 
 let mainWindow;
 let addWindow;
@@ -11,7 +11,11 @@ let addWindow;
 // Listen for app to be ready
 app.on("ready", () => {
   // create new window
-  mainWindow = new BrowserWindow({});
+  mainWindow = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
   // load html into window
   mainWindow.loadURL(
     url.format({
@@ -25,11 +29,15 @@ app.on("ready", () => {
   Menu.setApplicationMenu(mainMenu);
 });
 
+ipcMain.on("addStudent", function () {
+  createAddWindow();
+});
+
 function createAddWindow() {
   // create new window
   addWindow = new BrowserWindow({
-    width: 200,
-    height: 300,
+    width: 500,
+    height: 500,
     title: "Add new student",
   });
   // load html into window

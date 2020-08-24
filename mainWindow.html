@@ -201,7 +201,13 @@
   </div>
 
 </body>
-
+<script>
+  function createAddWindow() {
+    const electron = require("electron");
+    const { ipcRenderer } = electron;
+    ipcRenderer.send("addStudent", true);
+  }
+</script>
 
 
 </html>
